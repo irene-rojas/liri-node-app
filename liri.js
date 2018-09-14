@@ -56,49 +56,39 @@ spotify
 var searchOMDB = process.argv[3];
   // when empty
   if (searchOMDB === undefined) {
-    searchOMDB = "Mr. Nobody";
+    searchOMDB = "Mr Nobody";
   };
   var movieName = "";
 
 // function movieThis()
 function movieThis(searchOMDB) {
   for (var i = 2; i < searchOMDB.length; i++) {
-
-    if (i > 2 && i < searchOMDB.length) {
-  
-      movieName = movieName + "+" + searchOMDB[i];
-  
-    }
-  
-    else {
-  
-      movieName += searchOMDB[i];
-  
+    if (i > 2 && i < searchOMDB.length) {  
+      movieName = movieName + "+" + searchOMDB;  
+    }  
+    else { 
+      movieName += searchOMDB;  
     }
   }
 
-  var queryUrl = "http://www.omdbapi.com/?t=" + movieName + "&y=&plot=short&apikey=trilogy";
-  console.log(queryUrl);
+  var queryUrl = "http://www.omdbapi.com/?t=" + searchOMDB + "&apikey=trilogy";
+  // console.log(queryUrl);
   request(queryUrl, function(error, response, body) {
     if (!error && response.statusCode === 200) {
-      console.log("Release Year: " + JSON.parse(body).Year);
+      console.log("Title: " + JSON.parse(body).Title);
+      console.log("Release Year: " + JSON.parse(body).Year);   
+      console.log("IMDB: " + JSON.parse(body).Ratings[0].Value);  
+      console.log("Rotten Tomatoes: " + JSON.parse(body).Ratings[1].Value);  
+      console.log("Country: " + JSON.parse(body).Country);
+      console.log("Language: " + JSON.parse(body).Language); 
+      console.log("Plot: " + JSON.parse(body).Plot); 
+      console.log("Actors: " + JSON.parse(body).Actors); 
     }
   });
 
 
 
 }; //end function movieThis()
-
-// title of movie
-// year of release
-// imdb rating
-// rotten tomatoes rating
-// country where movie produced
-// language
-// plot
-// actors
-
-
 
 
 // spotify-doWhat
@@ -116,18 +106,10 @@ function doWhat() {
 
 
 
-
-
 // Bands in Town
     // name of venue
     // venue location
     // date of event ("MM/DD/YYYY")
-
-
-
-
-
-
 
 
 switch(process.argv[2]) {
